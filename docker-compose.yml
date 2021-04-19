@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+# Database
+  booklist_db:
+    image: postgres:13.2
+    env_file:
+      - example.env
+    ports:
+      - "14330:5432"
