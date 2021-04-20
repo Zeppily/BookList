@@ -14,6 +14,10 @@ app.use(express.json());
 
 app.use('/api/books', bookRoutes);
 
+app.use((_, res) => {
+    res.status(404).json({ status: 404, message: 'Invalid endpoint or method' });
+});
+
 const port = 8000;
 app.listen(port, () => {
     console.log(`Listening on PORT ${port}`);
