@@ -3,8 +3,31 @@ version: "3.9"
 services:
 # Database
   booklist_db:
+    container_name: booklist_db
     image: postgres:13.2
     env_file:
       - example.env
     ports:
       - "14330:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      
+# Backend Server
+  booklist_server:
+    container_name: booklist_server
+    image: node:latest
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    environment: 
+      POSTGRES_HOST: booklist_db
+    env_file: 
+      - example.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      booklist_db:
+        condition: service_healthy
