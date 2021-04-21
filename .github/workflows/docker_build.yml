@@ -1,0 +1,21 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: Verify container running
+        run: docker ps -a
+      - name: Check DB Container
+        run: docker exec booklist_db whoami
+      - name: Check Backend Container
+        run: docker exec booklist_server whoami
