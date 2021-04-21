@@ -19,6 +19,8 @@ app.use((_, res) => {
 });
 
 const port = 8000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening on PORT ${port}`);
 });
+
+module.exports = server;

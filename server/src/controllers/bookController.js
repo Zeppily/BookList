@@ -12,7 +12,7 @@ const getAllBooks = async (_, res) => {
 
 const addBook = async (req, res) => {
     if (!req.body.author || !req.body.title) {
-        res.status(400).json({ status: 400, message: 'Invalid Object was passed, include all details.' });
+        res.status(400).json({ status: 400, message: 'Invalid Object was passed, include all details' });
     } else {
         try {
             const book = await Book.query().insert({
@@ -30,7 +30,7 @@ const addBook = async (req, res) => {
 
 const updateBook = async (req, res) => {
     if (!req.body.author || !req.body.title) {
-        res.status(400).json({ status: 400, message: 'Invalid Object was passed, include all details.' });
+        res.status(400).json({ status: 400, message: 'Invalid Object was passed, include all details' });
     } else {
         try {
             const id = parseInt(req.params.id, 10);
