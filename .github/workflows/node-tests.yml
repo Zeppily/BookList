@@ -1,0 +1,30 @@
+name: Node.js Tests
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bring up Test database
+        run: docker run --name booklist_db --env-file example.env -p 14330:5432 -d postgres
+      - name: Sleep
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
+      - name: Build & Tests
+        env: 
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+        run: |
+          cd server
+          npm install 
+          npm test
