@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import EditBook from './EditBook';
 
-export default function BookList(props) {
+export default function BookList() {
     const [books, setBooks] = useState([]);
     const [book, setBook] = useState({
         id: '',
@@ -75,7 +75,7 @@ export default function BookList(props) {
 
     return (
         <div>
-            <Grid container spacing={3}>
+            <Grid container spacing={0}>
                 <Grid item xs={6}>
                     <EditBook addBook={addBook} updateBook={updateBook} book={book} /> 
                 </Grid>

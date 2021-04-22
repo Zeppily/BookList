@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
 
 export default function EditBook(props) {
+    const [open, setOpen] = React.useState(false);
     const [book, setBook] = useState({
         title: '',
         author: '',
@@ -22,12 +24,24 @@ export default function EditBook(props) {
       }, [tempBook.title, tempBook.author, props.book]);
 
     const handleSave = () => {
-        props.updateBook(book);
+        if (book.author && book.title) {
+            props.updateBook(book);
+        } else {
+            setOpen(true);
+        }
     };
 
     const handleSaveNew = () => {
-        props.addBook(book);
+        if (book.author && book.title) {
+            props.addBook(book);
+        } else {
+            setOpen(true);
+        }
     };
+
+    const handleClose = (event, reason) => {
+        setOpen(false);
+      };
 
 
     const inputChanged = (event) => {
@@ -37,16 +51,19 @@ export default function EditBook(props) {
 
     return (
         <div>
-            <TextField id='filled-basic' margin='normal' name='title' label='Title'  style={{ width: 600 }}
+            <TextField id='filled-basic' name='title' label='Title'  style={{ width: 600 }}
                     variant='filled' value={book.title} onChange={event => inputChanged(event)}/><br />
-            <TextField id='filled-basic' margin='normal' name='author'label='Author'  style={{ width: 600 }}
+            <TextField id='filled-basic' name='author'label='Author'  style={{ width: 600 }}
                     variant='filled' value={book.author} onChange={event => inputChanged(event)}/><br />
-            <TextField id='filled-basic' margin='normal ' name='description' label='Description' style={{ width: 600 }}
+            <TextField id='filled-basic'  name='description' label='Description' style={{ width: 600, marginBottom: 20 }}
                     variant='filled' value={book.description} onChange={event => inputChanged(event)}
                     multiline rows='3'/><br />
 
-            <Button onClick={handleSave} color='primary'> Save </Button>
-            <Button onClick={handleSaveNew} color='primary'> Save New </Button>
+            <Button onClick={handleSave} variant='outlined' color='primary'> Save </Button>
+            <Button onClick={handleSaveNew} variant='outlined' color='primary'> Save New </Button>
+            <Snackbar open={open} onClose={handleClose} autoHideDuration={6000}
+              message="Can't save a book without a title and an author!"
+            />
         </div>
     );
 }
