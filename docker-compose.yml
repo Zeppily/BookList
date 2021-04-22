@@ -31,3 +31,15 @@ services:
     depends_on:
       booklist_db:
         condition: service_healthy
+
+# Frontend Server
+  booklist_client:
+    container_name: booklist_client
+    image: node:14
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - booklist_server
