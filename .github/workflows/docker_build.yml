@@ -23,3 +23,5 @@ jobs:
         run: docker exec booklist_db whoami
       - name: Check Backend Container
         run: docker exec booklist_server whoami
+      - name: Check client Container
+        run: docker exec booklist_client whoami
