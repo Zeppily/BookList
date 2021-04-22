@@ -35,7 +35,7 @@ services:
 # Frontend Server
   booklist_client:
     container_name: booklist_client
-    image: node:14
+    image: node:15
     build:
       context: ./client
       dockerfile: ./Dockerfile
