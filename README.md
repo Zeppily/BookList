@@ -2,15 +2,30 @@
 [![Docker Build](https://github.com/Zeppily/BookList/actions/workflows/docker_build.yml/badge.svg?branch=master)](https://github.com/Zeppily/BookList/actions/workflows/docker_build.yml)  
   
  [![Node.js Tests](https://github.com/Zeppily/BookList/actions/workflows/node-tests.yml/badge.svg)](https://github.com/Zeppily/BookList/actions/workflows/node-tests.yml)  
-## Running the application (Docker)
 
-(cd in project root folder)  
+  
+[![React Tests](https://github.com/Zeppily/BookList/actions/workflows/reactapp.yml/badge.svg)](https://github.com/Zeppily/BookList/actions/workflows/reactapp.yml)  
+## Running the application (Docker)  
+1. Clone Repo  
 ```
-    docker-compose up -d
+git clone https://github.com/Zeppily/BookList.git
 ```
-This utilizes example.env for database details & communication between server-database.
-Resulting containers: booklist_Client, booklist_Server, Booklist_db.
-
+2. Go to project root folder
+```
+cd BookList/
+```
+3. Run Docker Compose
+```
+docker-compose up -d
+```  
+4. Go to your browser localhost:3000  
+  
+This utilizes example.env for database details & communication between server-database within docker network.  
+Resulting containers: booklist_Client, booklist_Server, Booklist_db.  
+(* Docker compose: https://docs.docker.com/compose/install/)  
+(if you are running the stack remotely, edit client fetch urls to reflect your server address and port)  
+(if you want database data to persist after bringing down an image, consider using a named volume for the DB,  
+https://docs.docker.com/storage/volumes/#use-a-volume-with-docker-compose)  
 ## Testing (through github actions for automation)
 
 - Docker build: tests docker compose and verifies containers as running.
